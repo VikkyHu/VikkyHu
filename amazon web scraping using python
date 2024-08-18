@@ -1,0 +1,248 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "66a2d085-639b-49ec-8692-12234fbe42db",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from bs4 import BeautifulSoup\n",
+    "import requests\n",
+    "import time\n",
+    "import datetime"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 74,
+   "id": "13af7e80-60e2-43db-9fe3-cdeca58ee8c0",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Lymio Men T-Shirt || T-Shirt for Men || Plain T Shirt || T-Shirt (Polo-18-21)\n",
+      "\n",
+      "                      379\n",
+      "                     \n"
+     ]
+    }
+   ],
+   "source": [
+    "url = 'https://www.amazon.in/Lymio-T-Shirt-Plain-Shirt-Polo-18-21/dp/B0CZ47F1MY/?_encoding=UTF8&pd_rd_w=mCG7j&content-id=amzn1.sym.211684f4-ebe1-443f-8a4a-0773471e979f&pf_rd_p=211684f4-ebe1-443f-8a4a-0773471e979f&pf_rd_r=DCC7TSGQM5WK23XFDTCV&pd_rd_wg=yj3TM&pd_rd_r=cb744a70-0b7d-432a-af7d-275d610652fe&ref_=pd_hp_d_btf_crs_zg_bs_1571271031'\n",
+    "\n",
+    "headers ={\"User-Agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36\"}\n",
+    "page = requests.get(url, headers=headers)\n",
+    "soup1 = BeautifulSoup(page.content, \"html.parser\")\n",
+    "soup2 = BeautifulSoup(soup1.prettify(),\"html.parser\")\n",
+    "title = soup2.find(id=\"productTitle\").get_text().strip()\n",
+    "price = soup2.find(class_=\"a-price-whole\").get_text()\n",
+    "\n",
+    "print(title)\n",
+    "print(price)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 84,
+   "id": "158f363a-f101-449c-ae79-bfafc638d8bd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "price = price.strip()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "id": "9a0144db-16a1-40c3-8290-7e159d5c5ae4",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Lymio Men T-Shirt || T-Shirt for Men || Plain T Shirt || T-Shirt (Polo-18-21)\n",
+      "379\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(title)\n",
+    "print(price)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 96,
+   "id": "afd8f5ab-1bc4-4b81-b7ab-6cc2d6b9ccab",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2024-08-18\n"
+     ]
+    }
+   ],
+   "source": [
+    "import datetime\n",
+    "today = datetime.date.today()\n",
+    "print(today)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 98,
+   "id": "2c0fd712-642e-491d-a554-b71bac5a7f11",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import csv\n",
+    "\n",
+    "header = ['title','price','date']\n",
+    "data = [title,price,today]\n",
+    "\n",
+    "with open ('amazonwebdataset.csv' ,'w',newline='',encoding='UTF8') as f:\n",
+    "    writer = csv.writer(f)\n",
+    "    writer.writerow(header)\n",
+    "    writer.writerow(data)\n",
+    "    \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 103,
+   "id": "706c4f16-e34d-450c-9dd5-fb7246cd0d84",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "                                               title  price        date\n",
+      "0  Lymio Men T-Shirt || T-Shirt for Men || Plain ...    379  2024-08-18\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "df = pd.read_csv(r'C:\\Users\\vikky1\\amazonwebdataset.csv')\n",
+    "print(df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 129,
+   "id": "bcabb58d-e851-4ef4-ad58-09758457d2c1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def check_price():\n",
+    " while(true):\n",
+    "    check_price()\n",
+    "    time.sleep(86400)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 119,
+   "id": "a7db3fed-b418-4447-b78c-a1df3d8bdca9",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "379\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(price)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 121,
+   "id": "0b169eb7-3c64-4512-ad46-22fbc18b2c7a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "379\n"
+     ]
+    }
+   ],
+   "source": [
+    "price = \"379\"  \n",
+    "price = int(price) \n",
+    "print(price)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 123,
+   "id": "a1deb85f-c8dc-4e7e-ac36-c95c7490452c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "if(price < 300):\n",
+    " send_mail()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 127,
+   "id": "cf565852-65c1-49ba-bf4c-9a2f520e6875",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def send_mail():\n",
+    "    server = sntplib.SMTP_SSL('sntp.gmail.com',465)\n",
+    "    server.ehloc()\n",
+    "    server.login('vigneshbaskar697@gmail.com','Vikky89k')\n",
+    "\n",
+    "    subject = \"The price is lower than 300\"\n",
+    "    body    = \"it is the right timt to buy it\"\n",
+    "\n",
+    "    msg = f\"Subject: {subject}\\n\\n{body}\"\n",
+    "    sever.sendmail('vigneshbaskar697@gmail.com',msg)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cde79dc2-f2c3-4398-a067-90aaa63e72e6",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
